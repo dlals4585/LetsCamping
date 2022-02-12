@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">렛츠캠핑</string>
+    <string name="main_name">LetsCamping</string>
+    <string name="getAdderss_fail">위치정보 없음</string>
+    <string name="calendar_year_month_format">yyyy년 MM월</string>
+    <string name="SUN">일</string>
+    <string name="MON">월</string>
+    <string name="TUE">화</string>
+    <string name="WED">수</string>
+    <string name="THU">목</string>
+    <string name="FRI">금</string>
+    <string name="SAT">토</string>
+
+    <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
+    <string name="msg_subscribed">Subscribed to weather topic</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <!-- [START fcm_default_icon_string] -->
+    <string name="default_notification_channel_name" translatable="true">Weather</string>
+    <!-- [END fcm_default_icon_string] -->
+    <string name="msg_subscribe_failed">Failed to subscribe to weather topic</string>
+    <string name="fcm_message">FCM Message</string>
+    <string name="back_icon1"> X </string>
+    <string name="title_activity_email_login">EmailLoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="title_activity_login2">LoginActivity2</string>
+</resources>

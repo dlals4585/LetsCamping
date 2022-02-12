@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainTapActivity"
+    android:orientation="vertical">
+
+    <!--<androidx.viewpager.widget.ViewPager
+        android:id="@+id/tap_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:overScrollMode="never"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>-->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/tap_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tablayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tap_viewpager">
+        <!--app:layout_constraintWidth_percent="1"
+        app:layout_constraintHeight_percent=".1"-->
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="홈"
+            android:textAllCaps="false"
+            android:textColor="#89131211"
+            android:textSize="15sp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= "내주변"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="#89131211"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= "예약정보"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="#89131211"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= "내정보"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="#89131211"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            />
+    </com.google.android.material.tabs.TabLayout>
+</LinearLayout>
+

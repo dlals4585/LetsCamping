@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyInfoFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5sp"
+        android:layout_height="40dp"
+        android:drawableBottom="#000000">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/login_TF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="right|center">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/myInfo_option"
+                android:layout_height="30sp"
+                android:layout_width="40sp"
+                android:background="@drawable/myinfo_option" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/info_notice"
+            android:layout_marginLeft="10sp"
+            android:layout_height="30sp"
+            android:layout_width="30sp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="right|center"
+            android:background="@drawable/noti"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/login_false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:text="로그인 해주세요"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="25sp"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15sp"
+                    android:layout_gravity="center"
+                    android:text="로그인/회원가입"
+                    android:textSize="20sp"
+                    android:background="@drawable/button_bgr" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/login_true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:layout_marginStart="15dp"
+                    android:text="로그인 완료(닉네임)"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:textSize="25sp"/>
+                <!--android:background="#D2D2D2"-->
+
+                <LinearLayout
+                    android:layout_margin="15sp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#E6E6E6"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:orientation="vertical"
+                        android:padding="1dp" >
+
+                        <TextView
+                            android:id="@+id/wishList"
+                            android:layout_width="fill_parent"
+                            android:layout_height="37dp"
+                            android:gravity="center"
+                            android:paddingStart="5dp"
+                            android:text="위시리스트"
+                            android:background="#E6E6E6"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            tools:ignore="RtlSymmetry" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="1dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="5dp"
+                            tools:ignore="RtlSymmetry,UseCompoundDrawables">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/heart"
+                                android:contentDescription="TODO"
+                                tools:ignore="ContentDescription,HardcodedText" />
+                            <TextView
+                                android:id="@+id/wish_cnt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="37dp"
+                                android:gravity="center"
+                                android:paddingStart="5dp"
+                                android:text="0"
+                                android:background="#E6E6E6"
+                                android:textColor="#000000"
+                                android:textSize="16sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:orientation="vertical"
+                        android:padding="1dp" >
+
+                        <TextView
+                            android:id="@+id/shopping_basket"
+                            android:layout_width="fill_parent"
+                            android:layout_height="37dp"
+                            android:gravity="center"
+                            android:paddingStart="5dp"
+                            android:text="장바구니"
+                            android:background="#E6E6E6"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            tools:ignore="RtlSymmetry" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="1dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="5dp"
+                            tools:ignore="RtlSymmetry,UseCompoundDrawables">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:background="@drawable/basket"
+                                android:contentDescription="TODO"
+                                tools:ignore="ContentDescription,HardcodedText" />
+                            <TextView
+                                android:id="@+id/basket_cnt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="37dp"
+                                android:gravity="center"
+                                android:paddingStart="5dp"
+                                android:text="0"
+                                android:background="#E6E6E6"
+                                android:textColor="#000000"
+                                android:textSize="16sp"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:orientation="vertical"
+                        android:padding="1dp" >
+
+                        <TextView
+                            android:id="@+id/review"
+                            android:layout_width="fill_parent"
+                            android:layout_height="37dp"
+                            android:gravity="center"
+                            android:paddingStart="5dp"
+                            android:text="나의 리뷰"
+                            android:background="#E6E6E6"
+                            android:textColor="#000000"
+                            android:textSize="16sp"
+                            tools:ignore="RtlSymmetry" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:padding="1dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="5dp"
+                            tools:ignore="RtlSymmetry">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitEnd"
+                                android:background="@drawable/review_icon2"
+                                android:contentDescription="TODO"
+                                tools:ignore="ContentDescription,HardcodedText" />
+                            <TextView
+                                android:id="@+id/review_cnt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="37dp"
+                                android:gravity="center"
+                                android:paddingStart="5dp"
+                                android:text="0"
+                                android:background="#E6E6E6"
+                                android:textColor="#000000"
+                                android:textSize="16sp"
+                                tools:ignore="RtlSymmetry" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--<LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#D2D2D2"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal"
+                    android:padding="1dp" >
+
+                    <TextView
+                        android:id="@+id/cupone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="37dp"
+                        android:background="#E6E6E6"
+                        android:gravity="center|left"
+                        android:paddingLeft="5dp"
+                        android:text="쿠폰"
+                        android:textColor="#000000"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:orientation="horizontal"
+                    android:padding="1dp" >
+
+                    <TextView
+                        android:id="@+id/point"
+                        android:layout_width="fill_parent"
+                        android:layout_height="37dp"
+                        android:gravity="center|left"
+                        android:paddingLeft="5dp"
+                        android:text="포인트"
+                        android:background="#E6E6E6"
+                        android:textColor="#000000"
+                        android:textSize="16dp"/>
+                </LinearLayout>
+            </LinearLayout>-->
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="문의하기"
+                android:layout_weight="0.1"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/notice_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="알림설정"
+                android:layout_weight="0.1"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/permission_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="접근 권한 설정"
+                android:layout_weight="0.1"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:textAlignment="center"
+                    android:text="앱 버전"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/version_cd"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="viewEnd"
+                    android:text="1"
+                    android:layout_weight="0.1"
+                    android:textColor="#E15050"
+                    android:textSize="25sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:layout_marginBottom="10sp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="로그아웃"
+                android:layout_weight="0.1"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
