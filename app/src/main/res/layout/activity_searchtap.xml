@@ -47,19 +47,19 @@ android:orientation="vertical">
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_weight="0.6" />
-        <!---->
     </LinearLayout>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_search_tablayout"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        app:tabIndicatorColor="@color/black"
+        android:layout_height="55dp"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tap_viewpager">
         <!--app:layout_constraintWidth_percent="1"
         app:layout_constraintHeight_percent=".1"-->
+
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,7 +83,7 @@ android:orientation="vertical">
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/search_tap_viewpager"
+        android:id="@+id/search_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"/>

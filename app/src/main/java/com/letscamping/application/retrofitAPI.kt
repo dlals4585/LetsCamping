@@ -3,7 +3,6 @@ package com.letscamping.application
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
-import com.letscamping.model.AreaInfo
 import com.letscamping.model.AreaResponse
 import okhttp3.ResponseBody
 import org.json.JSONObject

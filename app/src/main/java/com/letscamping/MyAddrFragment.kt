@@ -1,7 +1,6 @@
 package com.letscamping
 
 import android.Manifest
-import android.R.attr
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
@@ -22,7 +21,6 @@ import com.google.gson.internal.Streams.parse
 import com.letscamping.application.RetrofitService
 import com.letscamping.application.retrofitAPI
 import com.letscamping.databinding.FragmentMyaddrBinding
-import com.letscamping.model.AreaInfo
 import com.letscamping.util.PermissionUtil
 import okhttp3.OkHttpClient
 import org.json.JSONObject
@@ -44,15 +42,6 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 
 import com.google.gson.JsonParser
-import android.R.attr.data
-
-
-
-
-
-
-
-
 
 class MyAddrFragment : Fragment() {
     private lateinit var binding:FragmentMyaddrBinding
@@ -69,7 +58,6 @@ class MyAddrFragment : Fragment() {
     )
     lateinit var mPermission : PermissionUtil
 
-    val mAreaInfo : ArrayList<AreaInfo> = ArrayList<AreaInfo>()
     override fun onAttach(context: Context) {
         Log.d("Life_cycle", "F onAttach")
         super.onAttach(context)
@@ -122,55 +110,6 @@ class MyAddrFragment : Fragment() {
             requireContext().startActivity(intent2)
         }
 
-        val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(100, TimeUnit.SECONDS)
-            .readTimeout(100, TimeUnit.SECONDS)
-            .writeTimeout(100, TimeUnit.SECONDS)
-            .build()
-
-        var gson = GsonBuilder().setLenient().create()  //MalformedJsonException 방지
-        val retrofit = Retrofit.Builder()
-            .baseUrl(RetrofitService().DEFAULT_URL)
-            //.addConverterFactory(ScalarsConverterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-
-        val server: retrofitAPI = retrofit.create(retrofitAPI::class.java)
-
-        val params:HashMap<String,Any> = HashMap<String,Any>()
-        //params.put()
-        //server.addParamsToURL("home",params).enqueue(object : Callback<AreaInfo>{
-        server.getArea("area").enqueue(object : Callback<JsonObject>{
-            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                //TODO("Not yet implemented")
-                if(response.isSuccessful){
-                    val res = response.body()
-                    val bodyArray = res?.get("data")?.asJsonArray ?: JsonArray()
-
-                    val parser = JsonParser()
-                    val jsonObj = parser.parse(res.toString()) as JsonObject
-                    val memberArray = jsonObj["data"] as JsonArray
-                    //val areainfo = JSONObject(res.toString()).getString("data")
-
-                    val ninfo = ArrayList<AreaInfo>()
-                    try {
-                        for (i in 0 until bodyArray.size()){
-                            val data1 = memberArray[i] as JsonObject
-
-                            println("자역명 : ${data1.get("area_Name")}")
-                        }
-
-                    } catch (e: JSONException) {
-                        println("JSONException : $e")
-                    }
-                }
-            }
-            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                //TODO("Not yet implemented")
-                println("error : $t")
-                println("error : ${call.request()}")
-            }
-        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

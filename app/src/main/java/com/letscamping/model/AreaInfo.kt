@@ -17,12 +17,11 @@ import org.json.JSONObject
  **/
 
 
-class AreaInfo() : Parcelable {
+/*class AreaInfo() : Parcelable {
 
     private var area_no = ""
     private var area_Cd = ""
     private var area_Name = ""
-
 
     constructor(parcel: Parcel) : this() {
         this.area_no = parcel.readInt().toString()
@@ -52,10 +51,10 @@ class AreaInfo() : Parcelable {
     }
 
     @Throws(JSONException::class)
-    constructor(jsonObject: JSONObject) : this() {
-        if (!jsonObject.isNull("area_no")) area_no = jsonObject.getString("area_no")
-        if (!jsonObject.isNull("area_Cd")) area_Cd = jsonObject.getString("area_Cd")
-        if (!jsonObject.isNull("area_Name")) area_Name = jsonObject.getString("area_Name")
+    constructor(jsonObject: JsonObject) : this() {
+        area_no = jsonObject.get("area_no").toString()
+        area_Cd = jsonObject.get("area_Cd").toString()
+        area_Name = jsonObject.get("area_Name").toString()
     }
 
     @Throws(JSONException::class)
@@ -65,7 +64,14 @@ class AreaInfo() : Parcelable {
         if (!jsonObject.isNull("area_Name")) area_Name = jsonObject.getString("area_Name")
     }
 
-}
+}*/
+
+class AreaInfo(
+    val area_no: Int,
+    val area_Cd: String,
+    val area_Name: String
+) { }
+
 data class AreaResponse(
     val mAreaInfo : List<AreaInfo>
 )

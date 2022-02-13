@@ -35,6 +35,10 @@
             android:layout_gravity="right|center"
             android:background="@drawable/search_glass" />
 
+        <View
+            android:layout_width="10dp"
+            android:layout_height="0dp" />
+
         <Button
             android:id="@+id/main_notice"
             android:layout_marginLeft="10sp"
@@ -43,6 +47,10 @@
             android:layout_marginEnd="10dp"
             android:layout_gravity="right|center"
             android:background="@drawable/noti"/>
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="0dp" />
 
     </LinearLayout>
 

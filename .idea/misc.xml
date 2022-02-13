@@ -10,6 +10,8 @@
         <entry key="app/src/main/res/drawable/button_bgr.xml" value="0.35555555555555557" />
         <entry key="app/src/main/res/drawable/carousel_gray.xml" value="0.40989583333333335" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.41041666666666665" />
+        <entry key="app/src/main/res/layout-w1240dp/activity_areaList.xml" value="0.25468540829986613" />
+        <entry key="app/src/main/res/layout/activity_arealist.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_calendar.xml" value="0.19174265450861194" />
         <entry key="app/src/main/res/layout/activity_campinglist.xml" value="0.471875" />
         <entry key="app/src/main/res/layout/activity_email_login.xml" value="0.3342391304347826" />
@@ -19,6 +21,7 @@
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.24926253687315633" />
         <entry key="app/src/main/res/layout/activity_notice_page.xml" value="0.38177083333333334" />
         <entry key="app/src/main/res/layout/activity_search_tap.xml" value="0.2739059967585089" />
+        <entry key="app/src/main/res/layout/activity_searchtap.xml" value="0.3963541666666667" />
         <entry key="app/src/main/res/layout/banner_list_item.xml" value="0.19174265450861194" />
         <entry key="app/src/main/res/layout/calendar_item.xml" value="0.19174265450861194" />
         <entry key="app/src/main/res/layout/fragment_calendar.xml" value="0.19174265450861194" />
@@ -40,5 +43,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.3446557971014493" />
+      </ProjectState>
+    </option>
   </component>
 </project>

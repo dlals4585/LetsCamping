@@ -21,15 +21,15 @@ class SearchTapActivity : AppCompatActivity() {
         setContentView(view)
         //setContentView(R.layout.activity_search_tap)
 
-        /*binding.search_tap_viewpager.adapter = ScreenSlidePagerAdapter1(this)
-        search_tap_viewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        search_tap_viewpager.setUserInputEnabled(false)
-        val tapTextList = arrayListOf("검색1","검색2")*/
+        binding.searchViewpager.adapter = ScreenSlidePagerAdapter1(this)
+        binding.searchViewpager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        binding.searchViewpager.isUserInputEnabled = false
+        val tapTextList = arrayListOf("검색1","검색2")
 
         // 뷰페이저와 탭레이아웃을 붙임
-        /*TabLayoutMediator(binding.main_search_tablayout, search_tap_viewpager) { tab, position ->
+        TabLayoutMediator(binding.mainSearchTablayout, binding.searchViewpager) { tab, position ->
             tab.text = tapTextList[position]
-        }.attach()*/
+        }.attach()
 
         binding.exitSearch.setOnClickListener { finish() }
     }
