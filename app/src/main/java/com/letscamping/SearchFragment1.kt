@@ -22,6 +22,7 @@ import com.letscamping.application.retrofitAPI
 import com.letscamping.databinding.ActivityArealistBinding
 import com.letscamping.databinding.FragmentSearch1Binding
 import com.letscamping.model.AreaInfo
+import com.letscamping.model.CampingList
 //import com.letscamping.model.AreaList
 import okhttp3.OkHttpClient
 import org.json.JSONException
@@ -36,7 +37,8 @@ class SearchFragment1 : Fragment() {
 
     //var mAreaName : ArrayList<AreaList> = ArrayList<AreaList>()
     val marealist1 = arrayListOf<AreaInfo>()
-    //val arealist = ArrayList<AreaInfo>()
+    var totalCount = ""
+    val mCamplist = ArrayList<CampingList>()
 
     private lateinit var binding:FragmentSearch1Binding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,11 +64,18 @@ class SearchFragment1 : Fragment() {
         //onCreateView가 실행 된 다음 수행되는 주기(Fragment에서 액티비티에 대한 이벤트나 세팅은 여기에서 한다.)
         Log.d("Life_cycle", "F onViewCreated")
         super.onViewCreated(view, savedInstanceState)
-        getArea()
+        getArea("area")
+
+        binding.searchButton1.setOnClickListener {
+            getSearchCamp("getSearchCamp", binding.searchData1.text.toString())
+            Toast.makeText(requireContext(),"데이터갯수:$totalCount",Toast.LENGTH_LONG).show()
+            //startActivity(Intent(it.context, SelectCampsiteActivity::class.java).putExtra("keyword1",binding.searchData1.text.toString()))//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
     }
 
-    fun getArea(){
-        val mAreaName1 : ArrayList<AreaInfo> = ArrayList<AreaInfo>()
+    fun getArea(path: String){
+        val mAreaName1 = ArrayList<AreaInfo>()
+
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(100, TimeUnit.SECONDS)
             .readTimeout(100, TimeUnit.SECONDS)
@@ -83,10 +92,7 @@ class SearchFragment1 : Fragment() {
 
         val server: retrofitAPI = retrofit.create(retrofitAPI::class.java)
 
-        val params:HashMap<String,Any> = HashMap<String,Any>()
-        //params.put()
-        //server.addParamsToURL("home",params).enqueue(object : Callback<AreaInfo>{
-        server.getArea("area").enqueue(object : Callback<JsonObject> {
+        server.getArea(path).enqueue(object : Callback<JsonObject> {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                 //TODO("Not yet implemented")
                 if(response.isSuccessful){
@@ -112,7 +118,6 @@ class SearchFragment1 : Fragment() {
                         println("JSONException : $e")
                     }
                 }
-
                 val areaListadapter = AreaListViewAdapter(requireContext(), LayoutInflater.from(requireContext()), mAreaName1)
                 binding.areaList.adapter = areaListadapter
                 binding.areaList.layoutManager = LinearLayoutManager(requireContext()).also { it.orientation = LinearLayoutManager.VERTICAL }
@@ -121,6 +126,59 @@ class SearchFragment1 : Fragment() {
                 /*for (a in mAreaName1){
                     println("data == > ${a.area_Cd}, ${a.area_Name}")
                 }*/
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                //TODO("Not yet implemented")
+                println("error : $t")
+                println("error : ${call.request()}")
+            }
+        })
+    }
+
+    fun getSearchCamp(path: String, param:String){
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(100, TimeUnit.SECONDS)
+            .readTimeout(100, TimeUnit.SECONDS)
+            .writeTimeout(100, TimeUnit.SECONDS)
+            .build()
+
+        val gson = GsonBuilder().setLenient().create()  //MalformedJsonException 방지
+        val retrofit = Retrofit.Builder()
+            .baseUrl(RetrofitService().DEFAULT_URL)
+            //.addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+
+        val server: retrofitAPI = retrofit.create(retrofitAPI::class.java)
+
+        val params:HashMap<String,Any> = HashMap<String,Any>()
+        params["pageNo"] = "1"
+        params["keyword"] = param
+        //server.addParamsToURL("home",params).enqueue(object : Callback<AreaInfo>{
+        server.getSearchCamp(path,params).enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                //TODO("Not yet implemented")
+                if(response.isSuccessful){
+                    val res = response.body()
+                    totalCount = res?.get("totalCount")?.asString.toString()
+                    println("totalcount:$totalCount")
+                    println("res:${res.toString()}")
+                    /*val bodyArray = res?.get("body")?.asJsonArray ?: JsonArray()
+
+                    val parser = JsonParser()
+                    val jsonObj = parser.parse(res.toString()) as JsonObject
+                    val memberArray = jsonObj["body"] as JsonArray
+
+                    try {
+                        for (i in 0 until bodyArray.size()){
+                            val data1 = memberArray[i] as JsonObject
+                            totalCount = data1["totalCount"].asString
+                        }
+                    } catch (e: JSONException) {
+                        println("JSONException : $e")
+                    }*/
+                }
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 //TODO("Not yet implemented")
@@ -197,12 +255,11 @@ class SearchFragment1 : Fragment() {
                 itemView.root.setOnClickListener {
                     //Toast.makeText(context,"${position+1} 번째 아이템",Toast.LENGTH_SHORT).show()
                     val position: Int = adapterPosition
-                    val content = marealist1.get(position).area_Cd
-                    val result = "result... OK"
-                    val intent = Intent(it.context, MainTapActivity::class.java).apply {
+                    val keyword = marealist1.get(position).area_Cd
+                    println("keyword = $keyword")
+                    val intent = Intent(it.context, SelectCampsiteActivity::class.java).apply {
                          putExtra("imageID",position)
-                         putExtra("content",content)
-                         putExtra("result",result)
+                         putExtra("keyword1",keyword)
                      }
                      context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }

@@ -1,6 +1,7 @@
 package com.letscamping.model
 
 import com.google.gson.JsonObject
+import java.io.Serializable
 
 /*class CampingList(
     val camp_no:String,         //캠핑장번호(캠핑장 인덱스)
@@ -21,6 +22,6 @@ import com.google.gson.JsonObject
 ) { }*/
 class CampingList(
     val jsonObject: JsonObject
-) { }
+)// : Serializable{ }
 
 class CampRank (val cmp_name: String, val gender: String, val age: String, val photo: String)

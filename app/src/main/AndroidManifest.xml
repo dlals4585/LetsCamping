@@ -59,6 +59,7 @@
         android:theme="@style/Theme.AppCompat"
         android:usesCleartextTraffic="true"
         xmls:ignore="GoogleAppIndexingWarning">
+
         <!--<activity
             android:name=".ui.login.LoginActivity2"
             android:exported="false"
@@ -66,6 +67,7 @@
         <activity
             android:name=".EmailLoginActivity"
             android:exported="false" />
+
         <!--<activity
             android:name="com.letscamping.ui.login.EmailLoginActivity"
             android:exported="false"
@@ -125,22 +127,16 @@
             android:name=".LoginActivity"
             android:exported="false"
             android:theme="@style/AppFullScreenTheme" />
-        <!--
-<activity
-            android:name=".MyReservationFragment"
+        <activity
+            android:name=".SelectCampsiteActivity"
+            android:exported="false"
             android:theme="@style/AppFullScreenTheme" />
 
-        <activity android:name=".FirstFragmentStateAdapter" />
-        <activity android:name=".CalendarAdapter" />
-        <activity android:name=".CalendarFragment" />
-        <activity android:name=".PermissionUtil" />
-        <activity android:name=".HomeFragment" />
-        <activity android:name=".MyAddrFragment" />
-        <activity android:name=".MyInfoFragment" />
-        <activity android:name=".CarouselFragment" />
-        <activity android:name=".SearchFragment2" />
-        <activity android:name=".SearchFragment1" />
-        -->
+        <activity
+            android:name=".DetailCampsiteActivity"
+            android:exported="false"
+            android:theme="@style/AppFullScreenTheme"/>
+
         <service
             android:name=".service.MyFirebaseMessagingService"
             android:exported="false">

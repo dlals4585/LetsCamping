@@ -37,6 +37,18 @@ interface retrofitAPI {
     @GET("/{path}")
     fun getArea(@Path("path") path: String): Call<JsonObject>
 
+    @GET("/{path}/{pageNo}")
+    fun getgoCamp(
+        @Path("path") path: String,
+        @Query("pageNo") parameter:String
+    ): Call<JsonObject>
+
+    @POST("/{path}")
+    fun getSearchCamp(
+        @Path("path") path: String,
+        @Body parameters: HashMap<String, Any>
+    ): Call<JsonObject>
+
     @GET("/{path}")
     fun getArea(
         @Path("path") path: String,
@@ -68,6 +80,5 @@ interface retrofitAPI {
     }
     val paramString: String = URLEncodedUtils.format(params, "utf-8")
     url += "?$paramString"
-    AppLog.i(TAG, url)
     return url
 }*/
