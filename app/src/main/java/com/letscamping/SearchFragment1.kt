@@ -37,7 +37,7 @@ class SearchFragment1 : Fragment() {
 
     //var mAreaName : ArrayList<AreaList> = ArrayList<AreaList>()
     val marealist1 = arrayListOf<AreaInfo>()
-    var totalCount = ""
+
     val mCamplist = ArrayList<CampingList>()
 
     private lateinit var binding:FragmentSearch1Binding
@@ -68,8 +68,6 @@ class SearchFragment1 : Fragment() {
 
         binding.searchButton1.setOnClickListener {
             getSearchCamp("getSearchCamp", binding.searchData1.text.toString())
-            Toast.makeText(requireContext(),"데이터갯수:$totalCount",Toast.LENGTH_LONG).show()
-            //startActivity(Intent(it.context, SelectCampsiteActivity::class.java).putExtra("keyword1",binding.searchData1.text.toString()))//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
     }
 
@@ -135,7 +133,7 @@ class SearchFragment1 : Fragment() {
         })
     }
 
-    fun getSearchCamp(path: String, param:String){
+    fun getSearchCamp(path: String, param:String) {
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(100, TimeUnit.SECONDS)
             .readTimeout(100, TimeUnit.SECONDS)
@@ -161,8 +159,9 @@ class SearchFragment1 : Fragment() {
                 //TODO("Not yet implemented")
                 if(response.isSuccessful){
                     val res = response.body()
-                    totalCount = res?.get("totalCount")?.asString.toString()
-                    println("totalcount:$totalCount")
+                    //totalCount = res?.get("totalCount")?.asString.toString()
+                    var totalcount = res?.get("totalCount")?.asInt!!.toInt()
+                    println("totalcount:$totalcount")
                     println("res:${res.toString()}")
                     /*val bodyArray = res?.get("body")?.asJsonArray ?: JsonArray()
 
@@ -178,6 +177,9 @@ class SearchFragment1 : Fragment() {
                     } catch (e: JSONException) {
                         println("JSONException : $e")
                     }*/
+                    if (totalcount!=0){
+                        startActivity(Intent(requireContext(), SelectCampsiteActivity::class.java).putExtra("keyword1",binding.searchData1.text.toString()))//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }
                 }
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -255,7 +257,8 @@ class SearchFragment1 : Fragment() {
                 itemView.root.setOnClickListener {
                     //Toast.makeText(context,"${position+1} 번째 아이템",Toast.LENGTH_SHORT).show()
                     val position: Int = adapterPosition
-                    val keyword = marealist1.get(position).area_Cd
+                    //val keyword = marealist1.get(position).area_Cd
+                    val keyword = marealist1.get(position).area_Name
                     println("keyword = $keyword")
                     val intent = Intent(it.context, SelectCampsiteActivity::class.java).apply {
                          putExtra("imageID",position)

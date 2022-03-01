@@ -31,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 import android.net.Uri
+import androidx.core.os.bundleOf
 import com.squareup.picasso.Picasso
 import java.io.IOException
 
@@ -95,6 +96,9 @@ class HomeFragment : Fragment() {
         }
         binding.junraJeju.setOnClickListener {
             startActivity(Intent(it.context, SelectCampsiteActivity::class.java).putExtra("keyword1","전라").putExtra("keyword2","제주"))//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        binding.gangwon.setOnClickListener {
+            startActivity(Intent(it.context, SelectCampsiteActivity::class.java).putExtra("keyword1","강원"))//intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
     }
 
@@ -187,7 +191,7 @@ class HomeFragment : Fragment() {
                 if(response.isSuccessful){
                     val res = response.body()
                     val bodyArray = res?.get("item")?.asJsonArray ?: JsonArray()
-
+                    println("items===  ${res.toString()}")
                     val parser = JsonParser()
                     val jsonObj = parser.parse(res.toString()) as JsonObject
                     val memberArray = jsonObj["item"] as JsonArray
@@ -334,17 +338,17 @@ class HomeFragment : Fragment() {
                 maintitle = itemView.maintitle
                 contenttext = itemView.contenttext
 
-                mainImg.setScaleType(ImageView.ScaleType.CENTER)
+                mainImg.setScaleType(ImageView.ScaleType.FIT_XY)
 
                 itemView.root.setOnClickListener {
                     val position: Int = adapterPosition
                     //val content = mCamplist.get(position).jsonObject.get("camp_content").asString
+                    val facltNm = mCamplist.get(position).jsonObject.get("facltNm").asString
                     val contentId = mCamplist.get(position).jsonObject.get("contentId").asString
-                    println("content = $contentId")
 
                     val intent = Intent(it.context, DetailCampsiteActivity::class.java).apply {
-                         putExtra("imageID",position)
-                         putExtra("content",contentId)
+                         putExtra("facltNm",facltNm)
+                         putExtra("contentId",contentId)
                      }
                      context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
                 }

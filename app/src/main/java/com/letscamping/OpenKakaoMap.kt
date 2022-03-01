@@ -21,9 +21,9 @@ class OpenKakaoMap : AppCompatActivity() {
         val view = binding.root
         //setContentView(R.layout.activity_open_map)
         setContentView(view)
-        var GPSlat = intent.getDoubleExtra("GPSlat",0.0)
-        var GPSlng = intent.getDoubleExtra("GPSlng",0.0)
-        println("position2 == "+GPSlat+ ", " + GPSlng)
+        val GPSlat = intent.getDoubleExtra("GPSlat",0.0)
+        val GPSlng = intent.getDoubleExtra("GPSlng",0.0)
+        println("position2 == $GPSlat, $GPSlng")
         printHashKey()
 
         var mapView = MapView(this@OpenKakaoMap)

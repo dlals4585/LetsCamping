@@ -16,32 +16,28 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import com.google.gson.*
-import com.google.gson.internal.Streams.parse
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonArray
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.letscamping.adapter.SelectListViewAdapter
 import com.letscamping.application.RetrofitService
 import com.letscamping.application.retrofitAPI
 import com.letscamping.databinding.FragmentMyaddrBinding
+import com.letscamping.model.CampingList
 import com.letscamping.util.PermissionUtil
 import okhttp3.OkHttpClient
-import org.json.JSONObject
+import org.json.JSONException
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 //import kotlinx.android.synthetic.main.fragment_myaddr.*
 
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
-import org.json.JSONException
-import com.google.gson.JsonArray
-
-import com.google.gson.JsonObject
-
-import com.google.gson.JsonParser
 
 class MyAddrFragment : Fragment() {
     private lateinit var binding:FragmentMyaddrBinding
@@ -49,6 +45,7 @@ class MyAddrFragment : Fragment() {
     var GPSlng : Double  = 126.9784147
     private lateinit var lastKnownLocation : Location
     var getaddress1: String = ""
+    var camplist : ArrayList<CampingList> = ArrayList<CampingList>()
     //private var isGPSEnabled : Boolean = false
     //private var isNetworkEnabled : Boolean = false
     private var location_request_code : Int = 0
@@ -82,15 +79,20 @@ class MyAddrFragment : Fragment() {
         //inflater = view를 그려주는것
         //container =  부모뷰(자식뷰에 붙여주는것)
         binding = FragmentMyaddrBinding.inflate(layoutInflater)
-        val view = binding.root
         //return inflater.inflate(R.layout.fragment_myaddr,container , false)
-        return view
+        return binding.root
     }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) { //onCreateView가 실행 된 다음 수행되는 주기
         Log.d("Life_cycle", "F onViewCreated")
         super.onViewCreated(view, savedInstanceState)
+        /*val bundle = arguments
+
+        if(bundle != null){
+            GPSlat = bundle.getDouble("GPSlat")
+            GPSlng = bundle.getDouble("GPSlng")
+        }*/
 
         mPermission = PermissionUtil(requireContext(),addresspermissions)
         mPermission.OnSetPermission()
@@ -98,6 +100,10 @@ class MyAddrFragment : Fragment() {
         binding.myAddressMain.setOnClickListener{
             Toast.makeText(requireContext(),"myAddress_main_Click",Toast.LENGTH_LONG).show()
         }
+
+        val address = binding.myAddressMain.text.toString().replace(" ","")
+        getmyaddrscampsite(address)
+
         binding.openMap.setOnClickListener {
             var intent1 = Intent(requireContext(), OpenKakaoMap::class.java)
             intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -110,6 +116,78 @@ class MyAddrFragment : Fragment() {
             requireContext().startActivity(intent2)
         }
 
+    }
+    fun getmyaddrscampsite(keyword:String){
+        var totalcount = 0
+        val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(100, TimeUnit.SECONDS)
+            .readTimeout(100, TimeUnit.SECONDS)
+            .writeTimeout(100, TimeUnit.SECONDS)
+            .build()
+
+        val gson = GsonBuilder().setLenient().create()  //MalformedJsonException 방지
+        val retrofit = Retrofit.Builder()
+            .baseUrl(RetrofitService().DEFAULT_URL)
+            //.addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .client(okHttpClient)
+            .build()
+
+        val server: retrofitAPI = retrofit.create(retrofitAPI::class.java)
+
+        val params:HashMap<String,Any> = HashMap<String,Any>()
+        params["pageNo"] = "1"
+        params["keyword"] = keyword
+        server.getSearchCamp("getSearchCamp",params).enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                //TODO("Not yet implemented")
+                if(response.isSuccessful){
+                    try {
+                        val res = response.body()
+                        //println("res:${res.toString()}")
+                        totalcount = res?.get("totalCount")?.asInt!!.toInt()
+                        //println("totalcount = $totalcount")
+                        val items = res.getAsJsonObject("items").asJsonObject
+                        if(totalcount<=1){
+                            val item = items.get("item") as JsonObject
+                            //println("items===  ${item.toString()}")
+                            val camplist1: CampingList = CampingList(item)
+                            camplist.add(camplist1)
+                        }else{
+                            val bodyArray = items?.get("item")?.asJsonArray ?: JsonArray()
+                            val parser = JsonParser()
+                            val jsonObj = parser.parse(items.toString()) as JsonObject
+                            val memberArray = jsonObj["item"] as JsonArray
+
+                            for (i in 0 until bodyArray.size()){
+                                val data1 = memberArray[i] as JsonObject
+                                val camplist1: CampingList = CampingList(data1)
+                                camplist.add(camplist1)
+                            }
+                        }
+                    } catch (e: JSONException) {
+                        println("JSONException : $e")
+                    } catch (e1: java.lang.Exception) {
+                        println("Exception : $e1")
+                    }
+                }
+                if(totalcount==0){
+                    binding.selectList.visibility = View.GONE
+                    binding.nullSelect.visibility = View.VISIBLE
+                }else{
+                    binding.selectList.visibility = View.VISIBLE
+                    binding.nullSelect.visibility = View.GONE
+                    val selectListadapter = SelectListViewAdapter(requireContext(), camplist)
+                    binding.selectList.adapter = selectListadapter
+                    binding.selectList.layoutManager = LinearLayoutManager(requireContext()).also { it.orientation = LinearLayoutManager.VERTICAL }
+                }
+            }
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                //TODO("Not yet implemented")
+                println("error : $t")
+                println("error : ${call.request()}")
+            }
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -191,24 +269,26 @@ class MyAddrFragment : Fragment() {
             GPSlat = lastKnownLocation.latitude
         }
     }
+    @SuppressLint("SetTextI18n")
     private fun setAddressInfo(){
         try {
             myLocation()
             getAddress()
-            var addrArray = getaddress1.split(" ")
+            val addrArray = getaddress1.split(" ")
             println("주소 ==== " + addrArray)
             binding.myAddressMain.text = "" + addrArray[1] + " " + addrArray[2]
         }catch(e : Exception){}
     }
+
     private fun getAddress() {
         val geoCoder = Geocoder(requireContext(), Locale.getDefault())
         val address = geoCoder.getFromLocation(GPSlat, GPSlng, 1).first().getAddressLine(0)
         getaddress1 = address.toString()
-        println("position Address == "+address.toString())
+        println("position Address == $address")
     }
 
     fun refreshFragment(fragment: Fragment) {
-        var ft: FragmentTransaction = fragmentManager!!.beginTransaction()
+        val ft: FragmentTransaction = fragmentManager!!.beginTransaction()
         ft.detach(fragment).attach(fragment).commit()
     }
 

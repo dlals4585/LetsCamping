@@ -1,6 +1,7 @@
 package com.letscamping.model
 
 import com.google.gson.JsonObject
+import org.json.JSONObject
 import java.io.Serializable
 
 /*class CampingList(
@@ -21,6 +22,12 @@ import java.io.Serializable
     val contenttext: String*/
 ) { }*/
 class CampingList(
+    val jsonObject: JsonObject
+)// : Serializable{ }
+class CampingList1(
+    val jsonObject: JSONObject
+)// : Serializable{ }
+class CampImg(
     val jsonObject: JsonObject
 )// : Serializable{ }
 
