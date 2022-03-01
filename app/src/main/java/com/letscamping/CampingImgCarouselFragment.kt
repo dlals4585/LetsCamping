@@ -43,22 +43,21 @@ class CampingImgCarouselFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val bundle = arguments
-        if(bundle != null){
-            contentId = bundle.getString("contentId").toString()
-            if ((!contentId.equals(null)) && (contentId != "")){
-                getCampImg(contentId)
-            }
-        }
         binding = FragmentCampimgCarouselBinding.inflate(layoutInflater)
         //val view = inflater.inflate(R.layout.fragment_carousel,container , false)
         return binding.root
     }
-    init {
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val bundle = arguments
+        if(bundle != null){
+            contentId = bundle.getString("contentId").toString()
+        }
+        if ((!contentId.equals(null)) && (contentId != "")){
+            getCampImg(contentId)
+        }
 
         binding.carouselLayout.setOnClickListener {
             Toast.makeText(requireContext(), "모두 보기 클릭했음", Toast.LENGTH_LONG).show()
@@ -99,7 +98,6 @@ class CampingImgCarouselFragment : Fragment() {
                         for (i in 0 until bodyArray.size()){
                             val data1 = memberArray[i] as JsonObject
                             val campimg1: CampImg = CampImg(data1)
-                            //val campimg1: String = data1.get("imageUrl").toString()
                             campImg.add(campimg1)
                         }
                         bindingdata(campImg)
@@ -109,7 +107,6 @@ class CampingImgCarouselFragment : Fragment() {
                         println("getCampImg Exception : $e1")
                     }
                 }
-                //setDataAtFragment(CampingImgCarouselFragment(),campImg)
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 //TODO("Not yet implemented")
@@ -145,22 +142,20 @@ class CampingImgCarouselFragment : Fragment() {
 
     class ViewPagerAdapter1(
         var context: Context,
-        bannerList: ArrayList<CampImg>
+        private val bannerList: ArrayList<CampImg>
         ) : RecyclerView.Adapter<ViewPagerAdapter1.PagerViewHolder>() {
-
-        var item = bannerList
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PagerViewHolder {
             val itemBinding = CampImgItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             return PagerViewHolder(itemBinding)
         }
 
-        override fun getItemCount(): Int = item.size//Int.MAX_VALUE	// 아이템의 갯수를 임의로 확 늘린다.
+        override fun getItemCount(): Int = bannerList.size//Int.MAX_VALUE	// 아이템의 갯수를 임의로 확 늘린다.
 
         override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
             //println("imageUrl==${item[position].jsonObject.get("imageUrl").asString.toString()}")
-            if(item.size!=0){
-                val uri = Uri.parse(item[position].jsonObject.get("imageUrl").asString.toString())
+            if(bannerList.size!=0){
+                val uri = Uri.parse(bannerList[position].jsonObject.get("imageUrl").asString.toString())
                 Picasso.with(this.context).load(uri).into(holder.banner)
             }
             //holder.banner.setImageResource(item[position%item.size].jsonObject[""].asString.)	// position에 3을 나눈 나머지 값을 사용한다.
