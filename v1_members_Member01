@@ -1,13 +1,32 @@
 {
 "member": {
 "status": "신청대기",
-"memberId": "MEMBER-01", "memberName": "홍길동", "smsFlag": "N",
+"memberId": "MEMBER-01",
+"memberName": "홍길동",
+"smsFlag": "N",
 "phone": "01012345678",
-"email": "hong@email.com", "zipcode": "06349",
-"address1": "서울특별시 강남구", "address2": "광평로 281", "joinDate": "2016/01/01", "receiptFlag": "Y", "receiptNumber": "01012345678", "memberKind": "000", "managerId": "apitest",
-"memo": "회원에대한메모", "paymentStartDate": "2020/01/01", "paymentEndDate": "2020/12/31", "paymentDay": "25", "defaultAmount": 50000, "paymentKind": "CMS", "paymentCompany": "088", "paymentNumber": "123****890", "payerName": "홍길동",
+"email": "hong@email.com",
+"zipcode": "06349",
+"address1": "서울특별시 강남구",
+"address2": "광평로 281",
+"joinDate": "2016/01/01",
+"receiptFlag": "Y",
+"receiptNumber": "01012345678",
+"memberKind": "000",
+"managerId": "apitest",
+"memo": "회원에대한메모",
+"paymentStartDate": "2020/01/01",
+"paymentEndDate": "2020/12/31",
+"paymentDay": "25",
+"defaultAmount": 50000,
+"paymentKind": "CMS",
+"paymentCompany": "088",
+"paymentNumber": "123****890",
+"payerName": "홍길동",
 "result": {
-"flag": null, "code": null, "message": null
+"flag": null,
+"code": null,
+"message": null
 }, "links": [
 {
 "rel": "self",
